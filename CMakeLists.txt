@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 3.23)
 project(gameInC)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lmingw32")
-set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(${PROJECT_SOURCE_DIR}/external/include)
-link_directories(${PROJECT_SOURCE_DIR}/external/lib)
+find_package(SDL2 REQUIRED)
 
-set(SOURCE_FILES main.cpp)
-add_executable(gameInC main.cpp)
+include_directories(.)
+include_directories(src)
+include_directories(external)
+include_directories(${SDL2_INCLUDE_DIR})
 
-target_link_libraries(gameInC mingw32 SDL2main SDL2)
+
+set(SOURCE_FILES src/main.cpp)
+add_executable(gameInC src/main.cpp)
+
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
