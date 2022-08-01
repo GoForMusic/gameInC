@@ -6,7 +6,7 @@
 #define GAMEINC_GAME_H
 
 #include "SDL.h"
-#include <stdio.h>
+#include <iostream>
 
 class Game {
 public:
@@ -22,6 +22,7 @@ public:
 
     bool running() {return isRunning;}
 private:
+    int cnt=0;
     bool isRunning;
     SDL_Window *window;
     SDL_Renderer *renderer;

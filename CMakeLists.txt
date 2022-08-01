@@ -13,6 +13,6 @@ include_directories(${SDL2_INCLUDE_DIR})
 
 
 set(SOURCE_FILES src/main.cpp)
-add_executable(gameInC src/main.cpp src/Game.cpp src/Game.h)
+add_executable(gameInC src/main.cpp src/Core/Game.cpp src/Core/Game.h)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
