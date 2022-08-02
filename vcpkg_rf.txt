@@ -1,0 +1,3 @@
+install
+SDL2:x64-windows
+SDL2:x86-windows
