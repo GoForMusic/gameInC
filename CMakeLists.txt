@@ -1,18 +1,19 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.0)
 project(gameInC)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(SDL2 REQUIRED)
+#find REQ libs
+find_package(SDL2 CONFIG REQUIRED)
 
 include_directories(.)
 include_directories(src)
 include_directories(external)
-include_directories(${SDL2_INCLUDE_DIR})
 
 
 set(SOURCE_FILES src/main.cpp)
-add_executable(gameInC src/main.cpp src/Core/Game.cpp src/Core/Game.h)
+add_executable(${PROJECT_NAME} src/main.cpp src/Core/Game.cpp src/Core/Game.h)
 
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
+#link libs
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main)
