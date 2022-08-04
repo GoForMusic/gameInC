@@ -2,13 +2,17 @@
 // Created by acm on 01/08/2022.
 //
 
-#include "Game.h"
-#include "TextureManager.h"
+#include "src/Core/Public/Game.h"
+#include "src/Core/Public/GameObject.h"
+#include "src/Core/Public/Map.h"
 
 using namespace std;
 
-SDL_Texture* playerTex;
-SDL_Rect srcR, destR;
+GameObject* player;
+GameObject* enemy;
+Map* map;
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {
 
@@ -18,7 +22,7 @@ Game::~Game() {
 
 }
 
-void Game::init(const char *title, int xPos, int yPos, int width, int height, bool fullscreen) {
+void Game::init(const char *title, int width, int height, bool fullscreen) {
     int flags = 0;
     if(fullscreen){
         flags = SDL_WINDOW_FULLSCREEN;
@@ -26,7 +30,7 @@ void Game::init(const char *title, int xPos, int yPos, int width, int height, bo
 
     if(SDL_Init(SDL_INIT_EVERYTHING)==0){
         cout<<"Subsystems Initialisez!..." << endl;
-        window = SDL_CreateWindow(title,xPos,yPos, width,height, flags);
+        window = SDL_CreateWindow(title,SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, width,height, flags);
         if(window){
             cout<<"Window created!"<<endl;
         }
@@ -41,8 +45,9 @@ void Game::init(const char *title, int xPos, int yPos, int width, int height, bo
         isRunning= false;
     }
 
-    playerTex = TextureManager::LoadTexture("../assets/player/player1.png",renderer);
-
+    player = new GameObject("../assets/player/player1.png",0,0);
+    enemy = new GameObject("../assets/player/enemy1.png",50,50);
+    map = new Map();
 }
 
 void Game::handleEvents() {
@@ -59,21 +64,16 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    cnt++;
-
-    destR.h = 42;
-    destR.w = 32;
-    destR.x = cnt;
-
-    cout<<cnt<<" ";
+    player->Update();
+    enemy->Update();
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     //add stuff to render
-    SDL_RenderCopy(renderer,playerTex,NULL,&destR);
-
-
+    map->DrawMap();
+    player->Render();
+    enemy->Render();
     //~~~~~~
     SDL_RenderPresent(renderer);
 }
