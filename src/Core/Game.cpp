@@ -40,7 +40,7 @@ void Game::init(const char *title, int xPos, int yPos, int width, int height, bo
         isRunning= false;
     }
 
-    SDL_Surface* tmpSurface = IMG_Load("../assets/dungeon/0x72_16x16DungeonTileset.v4.png");
+    SDL_Surface* tmpSurface = IMG_Load("../assets/player/player1.png");
     playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
     SDL_FreeSurface(tmpSurface);
 
@@ -61,13 +61,18 @@ void Game::handleEvents() {
 
 void Game::update() {
     cnt++;
-    cout<<cnt<<endl;
+
+    destR.h = 42;
+    destR.w = 32;
+    destR.x = cnt;
+
+    cout<<cnt<<" ";
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     //add stuff to render
-    SDL_RenderCopy(renderer,playerTex,NULL,NULL);
+    SDL_RenderCopy(renderer,playerTex,NULL,&destR);
 
 
     //~~~~~~
