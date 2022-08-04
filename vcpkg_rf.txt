@@ -1,3 +1,5 @@
 install
 SDL2:x64-windows
 SDL2:x86-windows
+sdl2-image:x64-windows
+sdl2-image:x86-windows

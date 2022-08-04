@@ -6,6 +6,9 @@
 
 using namespace std;
 
+SDL_Texture* playerTex;
+SDL_Rect srcR, destR;
+
 Game::Game() {
 
 }
@@ -36,6 +39,11 @@ void Game::init(const char *title, int xPos, int yPos, int width, int height, bo
     }else{
         isRunning= false;
     }
+
+    SDL_Surface* tmpSurface = IMG_Load("../assets/dungeon/0x72_16x16DungeonTileset.v4.png");
+    playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+    SDL_FreeSurface(tmpSurface);
+
 }
 
 void Game::handleEvents() {
@@ -59,6 +67,10 @@ void Game::update() {
 void Game::render() {
     SDL_RenderClear(renderer);
     //add stuff to render
+    SDL_RenderCopy(renderer,playerTex,NULL,NULL);
+
+
+    //~~~~~~
     SDL_RenderPresent(renderer);
 }
 
